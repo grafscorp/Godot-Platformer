@@ -10,7 +10,6 @@ export var MAXHEALTH = 100.0
 export var health = 100.0
 
 var vec :Vector2 = Vector2.ZERO
-var dir :Vector2 = Vector2.ZERO
 
 onready var sprite:AnimatedSprite = $Sprite
 onready var coll:CollisionShape2D = $Collision
@@ -36,7 +35,7 @@ func _process(delta)->void:
 	vec.x*= speed*delta
 	anim()
 	###TESTWALL
-
+	print(player_state)
 func _physics_process(delta)->void:
 	vec.y += gravity*delta
 	vec = move_and_slide_with_snap(vec, Vector2.DOWN,Vector2.UP,true)#,1.57)
@@ -60,9 +59,9 @@ func move()->void:
 	if Input.is_action_just_pressed("space") and is_on_floor() :
 		vec.y -= jump
 func test_state()->void:
-	if vec.y < 0:
+	if vec.y < -1:
 		player_state = STATE.JUMP
-	elif vec.y>0:
+	elif vec.y>1:
 		player_state = STATE.DOWN
 	elif vec.x !=0:
 		player_state = STATE.RUN
@@ -71,7 +70,7 @@ func test_state()->void:
 	
 func climb()->void:
 	if !is_on_floor() and Input.is_action_pressed("e") and is_on_wall():
-		player_state = STATE.CLIMB
 		vec.y = 0
 		if Input.is_action_just_pressed("space"):
 			vec.y -= jump
+			

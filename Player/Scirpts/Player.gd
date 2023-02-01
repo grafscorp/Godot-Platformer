@@ -12,7 +12,7 @@ export var health = 100.0
 var vec :Vector2 = Vector2.ZERO
 var dir :Vector2 = Vector2.ZERO
 
-onready var sprite = $Sprite
+onready var sprite:AnimatedSprite = $Sprite
 onready var coll:CollisionShape2D = $Collision
 onready var hud_health:TextureProgress = $HUD.health
 onready var hud_stamina : TextureProgress= $HUD.stamina
@@ -50,7 +50,7 @@ func anim()->void:
 		STATE.IDLE:
 			pass
 		STATE.RUN:
-			pass
+			sprite.play("run")
 		STATE.JUMP:
 			pass
 		STATE.ROLL:

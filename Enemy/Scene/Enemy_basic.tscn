@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Enemy/Scene/Enemy_basic.gd" type="Script" id=2]
+
+[node name="Enemy_basic" type="KinematicBody2D"]
+collision_layer = 4
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+region_enabled = true
+region_rect = Rect2( 0, 0, 18, 32 )
+
+[node name="Collision" type="CollisionShape2D" parent="."]

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Player/Scirpts/Player.gd" type="Script" id=1]
-[ext_resource path="res://Player/Sprites/char2.png" type="Texture" id=2]
+[ext_resource path="res://Player/Sprites/char2 (1).png" type="Texture" id=2]
+[ext_resource path="res://UI/HUD/HUD.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 17 )
@@ -13,10 +14,16 @@ jump = 200.0
 gravity = 300.0
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -1, -10 )
 texture = ExtResource( 2 )
-region_enabled = true
-region_rect = Rect2( 10, 90, 100, 38 )
+region_rect = Rect2( 75, 69, 2, 37 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 2 )
 shape = SubResource( 1 )
+
+[node name="HUD" parent="." instance=ExtResource( 3 )]
+margin_left = 16.0
+margin_top = -15.0
+margin_right = 16.0
+margin_bottom = -15.0

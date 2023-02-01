@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 #export var speed :float = 10.0
 
+var vec : Vector2 = Vector2.ZERO
 #var vec : Vector2 = Vector2.ZERO
 
 # Declare member variables here. Examples:
@@ -17,3 +18,4 @@ extends KinematicBody2D
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+

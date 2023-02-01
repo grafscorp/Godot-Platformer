@@ -1,9 +1,6 @@
-extends KinematicBody2D
+extends PathFollow2D
 
-#export var speed :float = 10.0
-
-var vec : Vector2 = Vector2.ZERO
-#var vec : Vector2 = Vector2.ZERO
+export var runSpeed = 1
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -16,6 +13,6 @@ var vec : Vector2 = Vector2.ZERO
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
+func _process(delta):
+	set_offset(get_offset() + runSpeed + delta)
+	#pass

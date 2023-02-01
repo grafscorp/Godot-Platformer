@@ -16,13 +16,13 @@ onready var sprite = $Sprite
 onready var coll:CollisionShape2D = $Collision
 onready var hud_health:TextureProgress = $HUD.health
 onready var hud_stamina : TextureProgress= $HUD.stamina
-var can = true
 enum STATE{
 	IDLE,
 	RUN,
 	JUMP,
 	DOWN,
-	ROLL
+	ROLL,
+	CLIMB
 }
 var player_state = STATE.IDLE
 
@@ -36,9 +36,7 @@ func _process(delta)->void:
 	vec.x*= speed*delta
 	anim()
 	###TESTWALL
-	print(player_state)
-	if !is_on_wall():
-		can = true
+
 func _physics_process(delta)->void:
 	vec.y += gravity*delta
 	vec = move_and_slide_with_snap(vec, Vector2.DOWN,Vector2.UP,true)#,1.57)
@@ -72,8 +70,8 @@ func test_state()->void:
 		player_state = STATE.IDLE
 	
 func climb()->void:
-	if !is_on_floor() and Input.is_action_pressed("e") and is_on_wall() and can:
+	if !is_on_floor() and Input.is_action_pressed("e") and is_on_wall():
+		player_state = STATE.CLIMB
 		vec.y = 0
 		if Input.is_action_just_pressed("space"):
 			vec.y -= jump
-			can = false

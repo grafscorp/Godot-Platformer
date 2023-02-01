@@ -16,13 +16,18 @@ _data = {
 script = ExtResource( 2 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-collision_layer = 7
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( 534, 519 )
 shape = SubResource( 1 )
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
 position = Vector2( 710, 408 )
@@ -30,6 +35,9 @@ rotation = -0.436332
 shape = SubResource( 1 )
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
 position = Vector2( 10, 318 )
@@ -53,6 +61,9 @@ editor_draw_drag_margin = true
 position = Vector2( 38, 490 )
 scale = Vector2( 1, 0.333341 )
 curve = SubResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
 rotation = 0.0140178

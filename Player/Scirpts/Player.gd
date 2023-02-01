@@ -20,7 +20,7 @@ func _physics_process(delta)->void:
 	if is_on_wall() and !Input.is_action_pressed("space"):
 		vec.y = 0
 	vec = move_and_slide_with_snap(vec, Vector2.DOWN,Vector2.UP,true)#,1.57)
-func test_vec()->void:
+func test_vec():
 	if vec.x < 0:
 		sprite.flip_h = true
 	elif vec.x > 0:

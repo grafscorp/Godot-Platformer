@@ -40,10 +40,13 @@ position = Vector2( 449, 454 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
+zoom = Vector2( 0.5, 0.5 )
 limit_left = 0
 limit_bottom = 750
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
+editor_draw_limits = true
+editor_draw_drag_margin = true
 
 [node name="Path2D" type="Path2D" parent="."]
 position = Vector2( 38, 490 )
@@ -52,6 +55,7 @@ curve = SubResource( 2 )
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
 rotation = 0.0140178
+rotate = false
 script = ExtResource( 3 )
 
 [node name="Enemy" parent="Path2D/PathFollow2D" instance=ExtResource( 2 )]

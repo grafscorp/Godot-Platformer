@@ -3,7 +3,9 @@
 [ext_resource path="res://Player/Scene/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Enemy/Scene/Enemy_basic.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Levels/PathFollow2D.gd" type="Script" id=3]
+
 [ext_resource path="res://Enemy/Scene/test_enemy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Scripts/DemoLevel.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 559.5, 10 )
@@ -14,7 +16,7 @@ _data = {
 }
 
 [node name="DemoLevel" type="Node2D"]
-script = ExtResource( 2 )
+script = ExtResource( 4 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 __meta__ = {
@@ -75,3 +77,6 @@ script = ExtResource( 3 )
 position = Vector2( -0.873749, 9.01288 )
 rotation = -0.0140178
 scale = Vector2( 1, 2.99993 )
+
+[node name="StartPlayer" type="Position2D" parent="."]
+position = Vector2( 235, 487 )

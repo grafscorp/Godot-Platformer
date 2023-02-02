@@ -1,20 +1,22 @@
 extends KinematicBody2D
 
-
+#export
 export var speed :float
-var stamina:float = 100.0 
 export var jump :float
-const gravity: float = 300.0
-const MAXSPEED : float = 5000.0
 export var MAXHEALTH = 100.0
 export var health = 100.0
-
+#const
+const gravity: float = 300.0
+const MAXSPEED : float = 5000.0
+#varibles
+var stamina:float = 100.0 
 var vec :Vector2 = Vector2.ZERO
-
+#nodes
 onready var sprite:AnimatedSprite = $Sprite
 onready var coll:CollisionShape2D = $Collision
 onready var hud_health:TextureProgress = $HUD.health
 onready var hud_stamina : TextureProgress= $HUD.stamina
+
 enum STATE{
 	IDLE,
 	RUN,
@@ -23,6 +25,7 @@ enum STATE{
 	ROLL,
 	CLIMB
 }
+
 var player_state = STATE.IDLE
 
 func _ready()->void:
@@ -35,7 +38,6 @@ func _process(delta)->void:
 	vec.x*= speed*delta
 	anim()
 	###TESTWALL
-	print(player_state)
 func _physics_process(delta)->void:
 	vec.y += gravity*delta
 	vec = move_and_slide_with_snap(vec, Vector2.DOWN,Vector2.UP,true)#,1.57)
@@ -66,11 +68,13 @@ func test_state()->void:
 	elif vec.x !=0:
 		player_state = STATE.RUN
 	else:
-		player_state = STATE.IDLE
-	
+		if player_state != STATE.CLIMB:
+			player_state = STATE.IDLE
+
 func climb()->void:
 	if !is_on_floor() and Input.is_action_pressed("e") and is_on_wall():
 		vec.y = 0
+		player_state = STATE.CLIMB
 		if Input.is_action_just_pressed("space"):
 			vec.y -= jump
 			

@@ -21,7 +21,7 @@ texture = ExtResource( 4 )
 normal_map = ExtResource( 3 )
 
 [node name="Light2D" type="Light2D" parent="."]
-position = Vector2( 357, 208 )
+position = Vector2( 357, 216 )
 texture = SubResource( 3 )
 texture_scale = 1.9
 energy = 1.68

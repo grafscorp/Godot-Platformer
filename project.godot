@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "Enemy_basic",
 "language": "GDScript",
 "path": "res://Enemy/Scene/Enemy_basic.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://Player/Scirpts/Player.gd"
 } ]
 _global_script_class_icons={
-"Enemy_basic": ""
+"Enemy_basic": "",
+"Player": ""
 }
 
 [application]

@@ -1,5 +1,5 @@
 extends KinematicBody2D
-
+class_name Player
 #export
 export var speed :float
 export var jump :float
@@ -11,11 +11,14 @@ const MAXSPEED : float = 5000.0
 #varibles
 var stamina:float = 100.0 
 var vec :Vector2 = Vector2.ZERO
+var isclimbing:bool = false
 #nodes
 onready var sprite:AnimatedSprite = $Sprite
 onready var coll:CollisionShape2D = $Collision
 onready var hud_health:TextureProgress = $HUD.health
 onready var hud_stamina : TextureProgress= $HUD.stamina
+onready var spritehummer = $Hammer
+onready var iswall = $iswall
 
 enum STATE{
 	IDLE,
@@ -23,30 +26,31 @@ enum STATE{
 	JUMP,
 	DOWN,
 	ROLL,
-	CLIMB
 }
 
 var player_state = STATE.IDLE
 
-func _ready()->void:
-	hud_health.value = health
-
 func _process(delta)->void:
-	move()
+	vec.x =0
+	if isclimbing:
+		vec.y =0
 	climb()
+	move()
+	jump()
 	test_state()
 	vec.x*= speed*delta
-	anim()
-	###TESTWALL
-func _physics_process(delta)->void:
 	vec.y += gravity*delta
+	anim()
+func _physics_process(delta)->void:
 	vec = move_and_slide_with_snap(vec, Vector2.DOWN,Vector2.UP,true)#,1.57)
 
+func climb()->void:
+	if !iswall.is_colliding():
+		isclimbing = false
+	if iswall.is_colliding() and Input.is_action_just_pressed("e"):
+		isclimbing= true
 func anim()->void:
-	if vec.x < 0:
-		sprite.flip_h = true
-	elif vec.x > 0:
-		sprite.flip_h = false
+
 	match player_state:
 		STATE.IDLE:
 			pass
@@ -56,10 +60,28 @@ func anim()->void:
 			pass
 		STATE.ROLL:
 			pass
+
+
 func move()->void:
-	vec.x = Input.get_action_strength("d") - Input.get_action_strength("a")
-	if Input.is_action_just_pressed("space") and is_on_floor() :
+	if Input.is_action_pressed("a"):
+		vec.x -=1
+		sprite.flip_h = true
+		spritehummer.flip_h = true
+		iswall.rotation_degrees = 90
+	if Input.is_action_pressed("d"):
+		sprite.flip_h = false
+		spritehummer.flip_h = false
+		iswall.rotation_degrees =  -90
+		vec.x+=1
+
+func jump()->void:
+	if !Input.is_action_just_pressed("space"):
+		return
+	if is_on_floor():
 		vec.y -= jump
+	elif isclimbing:
+		isclimbing=false
+		vec.y-=jump
 func test_state()->void:
 	if vec.y < -1:
 		player_state = STATE.JUMP
@@ -68,13 +90,5 @@ func test_state()->void:
 	elif vec.x !=0:
 		player_state = STATE.RUN
 	else:
-		if player_state != STATE.CLIMB:
-			player_state = STATE.IDLE
+		player_state = STATE.IDLE
 
-func climb()->void:
-	if !is_on_floor() and Input.is_action_pressed("e") and is_on_wall():
-		vec.y = 0
-		player_state = STATE.CLIMB
-		if Input.is_action_just_pressed("space"):
-			vec.y -= jump
-			

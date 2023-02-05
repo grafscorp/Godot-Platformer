@@ -17,7 +17,6 @@ onready var sprite:AnimatedSprite = $Sprite
 onready var coll:CollisionShape2D = $Collision
 onready var hud_health:TextureProgress = $HUD.health
 onready var hud_stamina : TextureProgress= $HUD.stamina
-onready var spritehummer:Sprite = $Hammer
 onready var iswall :RayCast2D= $iswall
 
 enum STATE{
@@ -41,12 +40,10 @@ func _process(delta)->void:
 	vec.x*= speed*delta
 	vec.y += gravity*delta
 	anim()
-	###
-	if is_on_floor():
-		$Particles2D.emitting = true
+
 func _physics_process(delta)->void:
 	vec = move_and_slide_with_snap(vec, Vector2.DOWN,Vector2.UP,true)#,1.57)
-	print(vec.x)
+
 func climb()->void:
 	if !iswall.is_colliding():
 		isclimbing = false
@@ -56,7 +53,7 @@ func anim()->void:
 
 	match player_state:
 		STATE.IDLE:
-			pass
+			sprite.play("idle")
 		STATE.RUN:
 			sprite.play("run")
 		STATE.JUMP:
@@ -69,12 +66,10 @@ func move()->void:
 	if Input.is_action_pressed("a"):
 		vec.x -=1
 		sprite.flip_h = true
-		spritehummer.flip_h = true
-		iswall.rotation_degrees = 90
+		iswall.rotation_degrees = -90
 	if Input.is_action_pressed("d"):
 		sprite.flip_h = false
-		spritehummer.flip_h = false
-		iswall.rotation_degrees =  -90
+		iswall.rotation_degrees =  90
 		vec.x+=1
 
 func jump()->void:

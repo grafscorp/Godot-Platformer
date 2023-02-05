@@ -11,12 +11,14 @@ const MAXSPEED : float = 5000.0
 #varibles
 var stamina:float = 100.0 
 var vec :Vector2 = Vector2.ZERO
+var canclimb : bool = false
 #nodes
 onready var sprite:AnimatedSprite = $Sprite
 onready var coll:CollisionShape2D = $Collision
 onready var hud_health:TextureProgress = $HUD.health
 onready var hud_stamina : TextureProgress= $HUD.stamina
 onready var spritehummer = $Hammer
+onready var iswall:Area2D = $iswall 
 
 enum STATE{
 	IDLE,
@@ -33,24 +35,17 @@ func _ready()->void:
 	pass
 
 func _process(delta)->void:
+	vec.x =0
 	move()
-	#climb()
-	test_state()
-	
-	anim()
-	###TESTWALL
-func _physics_process(delta)->void:
-	vec.y += gravity*delta
 	vec.x*= speed*delta
+	test_state()
+	vec.y += gravity*delta
+	anim()
+func _physics_process(delta)->void:
 	vec = move_and_slide_with_snap(vec, Vector2.DOWN,Vector2.UP,true)#,1.57)
 
 func anim()->void:
-	if vec.x < 0:
-		sprite.flip_h = true
-		spritehummer.flip_h = true
-	elif vec.x > 0:
-		sprite.flip_h = false
-		spritehummer.flip_h = false
+
 	match player_state:
 		STATE.IDLE:
 			pass
@@ -62,7 +57,14 @@ func anim()->void:
 			pass
 
 func move()->void:
-	vec.x = Input.get_action_strength("d") - Input.get_action_strength("a")
+	if Input.is_action_pressed("a"):
+		vec.x -=1
+		sprite.flip_h = true
+		spritehummer.flip_h = true
+	if Input.is_action_pressed("d"):
+		sprite.flip_h = false
+		spritehummer.flip_h = false
+		vec.x+=1
 	if Input.is_action_just_pressed("space") and is_on_floor() :
 		vec.y -= jump
 
@@ -78,8 +80,13 @@ func test_state()->void:
 			player_state = STATE.IDLE
 
 func climb()->void:
-	if !is_on_floor() and Input.is_action_pressed("e") and is_on_wall():
-		vec.y = 0
-		player_state = STATE.CLIMB
-		if Input.is_action_just_pressed("space"):
-			vec.y -= jump
+	pass
+
+
+func _on_iswall_body_entered(wall):
+	canclimb = true
+	pass
+
+
+func _on_iswall_body_exited(body):
+	pass # Replace with function body.

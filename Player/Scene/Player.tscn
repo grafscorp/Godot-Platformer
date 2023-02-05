@@ -46,7 +46,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 8, 15.5 )
+extents = Vector2( 8, 15.25 )
 
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 1.5, 7 )
@@ -75,11 +75,8 @@ __meta__ = {
 }
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2( 1, 3.5 )
+position = Vector2( 0, 3.75 )
 shape = SubResource( 11 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 margin_left = 16.0
@@ -94,7 +91,10 @@ __meta__ = {
 collision_layer = 0
 
 [node name="collwall" type="CollisionShape2D" parent="iswall"]
-position = Vector2( 10, 0 )
+position = Vector2( 9, -7.86805e-07 )
 shape = SubResource( 12 )
 
+[node name="RayCast2D" type="RayCast2D" parent="."]
+
 [connection signal="body_entered" from="iswall" to="." method="_on_iswall_body_entered"]
+[connection signal="body_exited" from="iswall" to="." method="_on_iswall_body_exited"]

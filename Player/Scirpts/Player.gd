@@ -1,5 +1,5 @@
 extends KinematicBody2D
-
+class_name Player
 #export
 export var speed :float
 export var jump :float
@@ -11,7 +11,6 @@ const MAXSPEED : float = 5000.0
 #varibles
 var stamina:float = 100.0 
 var vec :Vector2 = Vector2.ZERO
-var canclimb : bool = false
 #nodes
 onready var sprite:AnimatedSprite = $Sprite
 onready var coll:CollisionShape2D = $Collision
@@ -26,19 +25,16 @@ enum STATE{
 	JUMP,
 	DOWN,
 	ROLL,
-	CLIMB
 }
 
 var player_state = STATE.IDLE
 
-func _ready()->void:
-	pass
-
 func _process(delta)->void:
 	vec.x =0
 	move()
-	vec.x*= speed*delta
+	jump()
 	test_state()
+	vec.x*= speed*delta
 	vec.y += gravity*delta
 	anim()
 func _physics_process(delta)->void:
@@ -56,18 +52,24 @@ func anim()->void:
 		STATE.ROLL:
 			pass
 
+
 func move()->void:
 	if Input.is_action_pressed("a"):
 		vec.x -=1
 		sprite.flip_h = true
 		spritehummer.flip_h = true
+		iswall.rotation_degrees = 180
 	if Input.is_action_pressed("d"):
 		sprite.flip_h = false
 		spritehummer.flip_h = false
+		iswall.rotation_degrees =  0
 		vec.x+=1
-	if Input.is_action_just_pressed("space") and is_on_floor() :
-		vec.y -= jump
 
+func jump()->void:
+	if !Input.is_action_just_pressed("space"):
+		return
+	if is_on_floor():
+		vec.y -= jump
 func test_state()->void:
 	if vec.y < -1:
 		player_state = STATE.JUMP
@@ -76,17 +78,11 @@ func test_state()->void:
 	elif vec.x !=0:
 		player_state = STATE.RUN
 	else:
-		if player_state != STATE.CLIMB:
-			player_state = STATE.IDLE
-
-func climb()->void:
-	pass
+		player_state = STATE.IDLE
 
 
 func _on_iswall_body_entered(wall):
-	canclimb = true
 	pass
 
-
-func _on_iswall_body_exited(body):
-	pass # Replace with function body.
+func _on_iswall_body_exited(wall):
+	pass

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Player/Scirpts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Sprites/run.png" type="Texture" id=2]
@@ -48,6 +48,22 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 8, 15.25 )
 
+[sub_resource type="ParticlesMaterial" id=12]
+lifetime_randomness = 0.2
+emission_shape = 2
+emission_box_extents = Vector3( 4, 4, 4 )
+flag_disable_z = true
+spread = 89.11
+gravity = Vector3( 0, -98, 0 )
+initial_velocity = 10.0
+initial_velocity_random = 1.0
+angular_velocity = 684.36
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 100.0
+angle = -57.0
+
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
 script = ExtResource( 1 )
@@ -61,6 +77,9 @@ jump = 200.0
 position = Vector2( -7, 3 )
 rotation = -0.523599
 texture = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( -1, -10 )
@@ -74,6 +93,9 @@ __meta__ = {
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 3.75 )
 shape = SubResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 margin_left = 16.0
@@ -88,3 +110,14 @@ __meta__ = {
 rotation = -4.8014
 enabled = true
 cast_to = Vector2( -1.06673, 11.9525 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Particles2D" type="Particles2D" parent="."]
+position = Vector2( 0, 19 )
+emitting = false
+amount = 30
+lifetime = 0.3
+one_shot = true
+process_material = SubResource( 12 )

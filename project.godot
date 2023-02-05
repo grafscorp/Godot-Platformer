@@ -39,6 +39,10 @@ gdscript/warnings/unused_argument=false
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
+[gdnative]
+
+singletons=[  ]
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true

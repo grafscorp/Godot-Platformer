@@ -16,6 +16,7 @@ onready var sprite:AnimatedSprite = $Sprite
 onready var coll:CollisionShape2D = $Collision
 onready var hud_health:TextureProgress = $HUD.health
 onready var hud_stamina : TextureProgress= $HUD.stamina
+onready var spritehummer = $Hammer
 
 enum STATE{
 	IDLE,
@@ -29,24 +30,27 @@ enum STATE{
 var player_state = STATE.IDLE
 
 func _ready()->void:
-	hud_health.value = health
+	pass
 
 func _process(delta)->void:
 	move()
-	climb()
+	#climb()
 	test_state()
-	vec.x*= speed*delta
+	
 	anim()
 	###TESTWALL
 func _physics_process(delta)->void:
 	vec.y += gravity*delta
+	vec.x*= speed*delta
 	vec = move_and_slide_with_snap(vec, Vector2.DOWN,Vector2.UP,true)#,1.57)
 
 func anim()->void:
 	if vec.x < 0:
 		sprite.flip_h = true
+		spritehummer.flip_h = true
 	elif vec.x > 0:
 		sprite.flip_h = false
+		spritehummer.flip_h = false
 	match player_state:
 		STATE.IDLE:
 			pass
@@ -56,10 +60,12 @@ func anim()->void:
 			pass
 		STATE.ROLL:
 			pass
+
 func move()->void:
 	vec.x = Input.get_action_strength("d") - Input.get_action_strength("a")
 	if Input.is_action_just_pressed("space") and is_on_floor() :
 		vec.y -= jump
+
 func test_state()->void:
 	if vec.y < -1:
 		player_state = STATE.JUMP
@@ -77,4 +83,3 @@ func climb()->void:
 		player_state = STATE.CLIMB
 		if Input.is_action_just_pressed("space"):
 			vec.y -= jump
-			

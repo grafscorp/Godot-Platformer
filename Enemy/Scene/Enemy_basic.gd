@@ -7,6 +7,8 @@ export var maxSpeed :float
 export var health :float
 export var maxHealth :float
 
+onready var vision = $EnemyRayCast
+
 var vec : Vector2 = Vector2.ZERO
 
 # Called when the node enters the scene tree for the first time.
@@ -15,7 +17,7 @@ var vec : Vector2 = Vector2.ZERO
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	#$Collision
 	#$Aread2D
 	pass

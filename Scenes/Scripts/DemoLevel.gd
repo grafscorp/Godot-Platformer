@@ -7,3 +7,4 @@ func _process(delta):
 		if get_tree().reload_current_scene() != OK:return
 	elif Input.is_action_just_pressed("esc"):
 		get_tree().quit()
+	print(str(Engine.get_frames_per_second()))

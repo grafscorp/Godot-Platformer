@@ -1,8 +1,8 @@
 extends KinematicBody2D
 class_name Player
 #export
-export var speed :float
-export var jump :float
+export var speed :float = 5000.0
+export var jump :float = 200.0
 export var MAXHEALTH = 100.0
 export var health = 100.0
 #const

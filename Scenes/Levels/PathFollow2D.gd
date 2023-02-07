@@ -1,6 +1,6 @@
 extends PathFollow2D
 
-export var runSpeed = 1
+#export var runSpeed = 1
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -13,6 +13,6 @@ export var runSpeed = 1
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	set_offset(get_offset() + runSpeed + delta)
+#func _process(delta):
+#	set_offset(get_offset() + runSpeed + delta)
 	#pass

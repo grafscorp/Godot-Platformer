@@ -4,20 +4,32 @@ class_name Player
 export var speed :float = 5000.0
 export var jump :float = 200.0
 export var MAXHEALTH = 100.0
+export var MAXSTAMINA=100.0
 export var health = 100.0
+export var stamina:float = 100.0 
+var attack_speed :float = 1.5
 #const
 const gravity: float = 300.0
 const MAXSPEED : float = 5000.0
+const stamina_jump :float= -10.0
+const stamina_attack:float = -10.0
+const stamina_block :float = -0.5
 #varibles
 var stamina:float = 100.0 
 var vec :Vector2 = Vector2.ZERO
 var isclimbing:bool = false
+var attacking:bool = false
+var danger_falling:bool=false
+var updating_stamina:bool = false
+var isblocking : bool = false
 #nodes
 onready var sprite:AnimatedSprite = $Sprite
 onready var coll:CollisionShape2D = $Collision
 onready var hud_health:TextureProgress = $HUD.health
 onready var hud_stamina : TextureProgress= $HUD.stamina
+onready var hud:Control = $HUD
 onready var iswall :RayCast2D= $iswall
+var timer :Timer 
 
 enum STATE{
 	IDLE,

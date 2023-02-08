@@ -15,7 +15,6 @@ const stamina_jump :float= -10.0
 const stamina_attack:float = -10.0
 const stamina_block :float = -0.5
 #varibles
-var stamina:float = 100.0 
 var vec :Vector2 = Vector2.ZERO
 var isclimbing:bool = false
 var attacking:bool = false
@@ -25,8 +24,6 @@ var isblocking : bool = false
 #nodes
 onready var sprite:AnimatedSprite = $Sprite
 onready var coll:CollisionShape2D = $Collision
-onready var hud_health:TextureProgress = $HUD.health
-onready var hud_stamina : TextureProgress= $HUD.stamina
 onready var hud:Control = $HUD
 onready var iswall :RayCast2D= $iswall
 var timer :Timer 
@@ -40,7 +37,6 @@ enum STATE{
 }
 
 var player_state = STATE.IDLE
-
 func _init():
 	timer = Timer.new()
 	add_child(timer)
@@ -52,9 +48,6 @@ func _process(delta)->void:
 	vec.x =0
 	if isclimbing:
 		vec.y =0
-	climb()
-	move()
-	jump()
 		update_stamina(-0.3)
 	if !attacking:
 		climb()
@@ -66,7 +59,6 @@ func _process(delta)->void:
 	vec.x*= speed*delta
 	vec.y += gravity*delta
 	anim()
-
 	if updating_stamina:
 		update_stamina(1,true)
 		if stamina >= MAXSTAMINA:
@@ -77,8 +69,6 @@ func _physics_process(delta)->void:
 func climb()->void:
 	if !iswall.is_colliding():
 		isclimbing = false
-	if iswall.is_colliding() and Input.is_action_just_pressed("e"):
-		isclimbing= true
 	if iswall.is_colliding() and Input.is_action_just_pressed("e") and stamina > (-stamina_jump):
 		if !isclimbing:
 			isclimbing= true
@@ -96,7 +86,6 @@ func anim()->void:
 		STATE.ROLL:
 			pass
 
-
 func move()->void:
 	if Input.is_action_pressed("a"):
 		vec.x -=1
@@ -107,13 +96,9 @@ func move()->void:
 		iswall.rotation_degrees =  90
 		vec.x+=1
 
-func jump()->void:
 func _jump()->void:
 	if !Input.is_action_just_pressed("space"):
 		return 
-	if is_on_floor():
-		vec.y -= jump
-	elif isclimbing:
 	if is_on_floor() or isclimbing:
 		isclimbing=false
 		vec.y-=jump

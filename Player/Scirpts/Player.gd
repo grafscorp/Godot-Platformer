@@ -41,6 +41,11 @@ enum STATE{
 
 var player_state = STATE.IDLE
 
+func _init():
+	timer = Timer.new()
+	add_child(timer)
+	timer.connect("timeout",self,"timeout")
+	
 func _process(delta)->void:
 	vec.x =0
 	if isclimbing:

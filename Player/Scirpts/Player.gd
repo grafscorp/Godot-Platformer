@@ -127,6 +127,11 @@ func test_state()->void:
 		player_state = STATE.RUN
 	else:
 		player_state = STATE.IDLE
+	if danger_falling and is_on_floor():
+		_take_damage(20)
+		danger_falling = false
+	elif vec.y>=400:
+		danger_falling = true
 func attack()->void:
 	if Input.is_action_just_pressed("attack"):
 		if stamina<(-stamina_attack) or attacking:return
@@ -150,6 +155,11 @@ func update_stamina(_stamina:float=0,_stamina_update:bool = false)->void:
 	$HUD._show()
 	if stamina <=0:
 		isclimbing = false
+func _take_damage(_damage:float=0)->void:
+	health -=_damage
+	if health <=0:
+		###DEATH
+		get_tree().reload_current_scene()
 
 func timeout()->void:
 	updating_stamina = true

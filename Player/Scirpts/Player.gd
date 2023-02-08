@@ -147,6 +147,14 @@ func attack()->void:
 		yield(get_tree().create_timer(attack_speed,true),"timeout")
 		attacking = false
 		
+func block()->void:
+	if Input.is_action_pressed("block")and !isclimbing and !attacking and stamina>(-stamina_block):
+		isblocking = true
+		update_stamina(stamina_block)
+		speed = MAXSPEED/2
+	else:
+		isblocking = false
+		speed = MAXSPEED
 func update_stamina(_stamina:float=0,_stamina_update:bool = false)->void:
 	stamina +=_stamina
 	timer.start(3)

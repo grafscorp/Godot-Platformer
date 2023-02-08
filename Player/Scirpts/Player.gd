@@ -67,6 +67,10 @@ func _process(delta)->void:
 	vec.y += gravity*delta
 	anim()
 
+	if updating_stamina:
+		update_stamina(1,true)
+		if stamina >= MAXSTAMINA:
+			updating_stamina = false
 func _physics_process(delta)->void:
 	vec = move_and_slide_with_snap(vec, Vector2.DOWN,Vector2.UP,true)#,1.57)
 
@@ -75,6 +79,11 @@ func climb()->void:
 		isclimbing = false
 	if iswall.is_colliding() and Input.is_action_just_pressed("e"):
 		isclimbing= true
+	if iswall.is_colliding() and Input.is_action_just_pressed("e") and stamina > (-stamina_jump):
+		if !isclimbing:
+			isclimbing= true
+			update_stamina(stamina_jump)
+		else:isclimbing = false
 func anim()->void:
 
 	match player_state:
@@ -99,13 +108,16 @@ func move()->void:
 		vec.x+=1
 
 func jump()->void:
+func _jump()->void:
 	if !Input.is_action_just_pressed("space"):
 		return 
 	if is_on_floor():
 		vec.y -= jump
 	elif isclimbing:
+	if is_on_floor() or isclimbing:
 		isclimbing=false
 		vec.y-=jump
+		
 func test_state()->void:
 	if vec.y < -1:
 		player_state = STATE.JUMP
@@ -115,4 +127,29 @@ func test_state()->void:
 		player_state = STATE.RUN
 	else:
 		player_state = STATE.IDLE
+func attack()->void:
+	if Input.is_action_just_pressed("attack"):
+		if stamina<(-stamina_attack) or attacking:return
+		update_stamina(stamina_attack)
+		if Input.is_action_pressed("s"):
+			print("downattack")
+		elif Input.is_action_pressed("w"):
+			print("upattack")
+		else:
+			print("rightattack")
+		attacking = true
+		
+		yield(get_tree().create_timer(attack_speed,true),"timeout")
+		attacking = false
+		
+func update_stamina(_stamina:float=0,_stamina_update:bool = false)->void:
+	stamina +=_stamina
+	timer.start(3)
+	if !_stamina_update:
+		updating_stamina = false
+	$HUD._show()
+	if stamina <=0:
+		isclimbing = false
 
+func timeout()->void:
+	updating_stamina = true

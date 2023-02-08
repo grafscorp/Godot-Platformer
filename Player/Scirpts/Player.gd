@@ -55,7 +55,14 @@ func _process(delta)->void:
 	climb()
 	move()
 	jump()
+		update_stamina(-0.3)
+	if !attacking:
+		climb()
+		move()
+		_jump()
+		block()
 	test_state()
+	attack()
 	vec.x*= speed*delta
 	vec.y += gravity*delta
 	anim()

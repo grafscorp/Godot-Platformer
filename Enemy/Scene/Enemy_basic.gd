@@ -16,8 +16,6 @@ var vec : Vector2 = Vector2.ZERO
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	#$Collision
-	#$Aread2D
 	pass
 
 func follow_player():

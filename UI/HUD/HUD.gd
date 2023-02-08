@@ -15,3 +15,9 @@ func _update_max(_max_health:float = health.max_value,_max_stamina:float = stami
 func _process(delta):
 	health.value = get_parent().health
 	stamina.value = get_parent().stamina
+func _show()->void:
+	mainHUD.visible = true
+	timer.start()
+	yield(timer,"timeout")
+	mainHUD.visible = false
+	pass

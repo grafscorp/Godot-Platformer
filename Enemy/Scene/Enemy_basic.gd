@@ -15,15 +15,17 @@ onready var forward_vision = $EnemyRayCastMid
 #func _ready():
 #	pass # Replace with function body.
 
-func _physics_process(_delta: float) -> void:
-	raycast_player()
-	pass
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
-func raycast_player():
+#TODO: behavior tree (ai)
+
+func _physics_process(_delta: float) -> void:
+	raycast()
+	pass
+
+func raycast():
 	#print(target)
 	#print(forward_vision.get_collider())
 	if forward_vision.is_colliding():

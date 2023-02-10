@@ -8,9 +8,8 @@ export var health :float
 export var maxHealth :float
 
 var vec : Vector2 = Vector2.ZERO
-onready var vision = $EnemyRayCast
 var target: Player = null
-#var target: KinematicBody2D = null
+onready var forward_vision = $EnemyRayCastMid
 
 # Called when the node enters the scene tree for the first time.
 #func _ready():
@@ -26,16 +25,16 @@ func _process(delta):
 
 func raycast_player():
 	#print(target)
-	#print(vision.get_collider())
-	if vision.is_colliding():
-		#print(vision.get_collider())
+	#print(forward_vision.get_collider())
+	if forward_vision.is_colliding():
+		#print(forward_vision.get_collider())
 		#print(target)
-		if vision.get_collider() is Player:
-			target = vision.get_collider()
+		if forward_vision.get_collider() is Player:
+			target = forward_vision.get_collider()
 			follow_player()
 			#target = null
-		elif vision.get_collider() is TileMap:
-			print('is wall')
+		elif forward_vision.get_collider() is TileMap:
+			print('is wall or flor')
 	#print(target)
 	target = null
 

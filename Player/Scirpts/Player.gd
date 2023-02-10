@@ -1,7 +1,7 @@
 extends KinematicBody2D
 class_name Player
 #export
-export var speed :float = 5000.0
+export var speed :float = 2000.0
 export var jump :float = 200.0
 export var MAXHEALTH = 100.0
 export var MAXSTAMINA=100.0
@@ -10,7 +10,7 @@ export var stamina:float = 100.0
 var attack_speed :float = 1.5
 #const
 const gravity: float = 300.0
-const MAXSPEED : float = 5000.0
+const MAXSPEED : float = 2000.0
 const stamina_jump :float= -10.0
 const stamina_attack:float = -10.0
 const stamina_block :float = -0.5
@@ -56,14 +56,16 @@ func _process(delta)->void:
 		block()
 	test_state()
 	attack()
-	vec.x*= speed*delta
-	vec.y += gravity*delta
+
 	anim()
 	if updating_stamina:
 		update_stamina(1,true)
 		if stamina >= MAXSTAMINA:
 			updating_stamina = false
 func _physics_process(delta)->void:
+	print(vec.x)
+	vec.x*= speed*delta
+	vec.y += gravity*delta
 	vec = move_and_slide_with_snap(vec, Vector2.DOWN,Vector2.UP,true)#,1.57)
 
 func climb()->void:
@@ -75,7 +77,7 @@ func climb()->void:
 			update_stamina(stamina_jump)
 		else:isclimbing = false
 func anim()->void:
-
+	
 	match player_state:
 		STATE.IDLE:
 			sprite.play("idle")

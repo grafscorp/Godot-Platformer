@@ -1,6 +1,5 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Enemy/Scene/EnemyRayCast.gd" type="Script" id=1]
 [ext_resource path="res://Enemy/Scene/Enemy_basic.gd" type="Script" id=2]
 
 [node name="Enemy_basic" type="KinematicBody2D"]
@@ -14,5 +13,6 @@ region_rect = Rect2( 0, 0, 18, 32 )
 [node name="Collision" type="CollisionShape2D" parent="."]
 
 [node name="EnemyRayCast" type="RayCast2D" parent="."]
+enabled = true
 cast_to = Vector2( 50, 0 )
-script = ExtResource( 1 )
+collision_mask = 3

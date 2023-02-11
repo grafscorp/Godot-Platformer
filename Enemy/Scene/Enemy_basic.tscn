@@ -12,7 +12,17 @@ region_rect = Rect2( 0, 0, 18, 32 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 
-[node name="EnemyRayCast" type="RayCast2D" parent="."]
+[node name="EnemyRayCastUp" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 50, -25 )
+collision_mask = 3
+
+[node name="EnemyRayCastMid" type="RayCast2D" parent="."]
 enabled = true
 cast_to = Vector2( 50, 0 )
+collision_mask = 3
+
+[node name="EnemyRayCastDown" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 50, 25 )
 collision_mask = 3

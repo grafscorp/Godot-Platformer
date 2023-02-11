@@ -36,7 +36,8 @@ func raycast():
 			follow_player()
 			#target = null
 		elif forward_vision.get_collider() is TileMap:
-			print('is wall or flor')
+			#print('is wall or flor')
+			pass
 	#print(target)
 	target = null
 

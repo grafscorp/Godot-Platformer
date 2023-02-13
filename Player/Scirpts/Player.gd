@@ -10,7 +10,7 @@ export var stamina:float = 100.0
 var attack_speed :float = 1.5
 #const
 const gravity: float = 300.0
-const MAXSPEED : float = 5000.0
+const MAXSPEED : float = 100.0
 const stamina_jump :float= -10.0
 const stamina_attack:float = -10.0
 const stamina_block :float = -0.5
@@ -55,7 +55,7 @@ func _process(delta)->void:
 	test_state()
 	attack()
 	anim()
-	vec.x*= speed*delta
+	vec.x*= speed
 	vec.y += gravity*delta
 func _physics_process(delta)->void:
 	if isclimbing:
@@ -65,7 +65,6 @@ func _physics_process(delta)->void:
 		update_stamina(1,true)
 		if stamina >= MAXSTAMINA:
 			updating_stamina = false
-
 	vec = move_and_slide_with_snap(vec, Vector2.DOWN,Vector2.UP,true)#,1.57)
 
 func climb()->void:

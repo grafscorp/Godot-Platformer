@@ -158,9 +158,9 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="test_enemy" parent="Path2D/PathFollow2D" instance=ExtResource( 4 )]
-position = Vector2( -0.873749, 9.01288 )
-rotation = -0.0140178
+[node name="spider-pot" parent="Path2D/PathFollow2D" instance=ExtResource( 4 )]
+position = Vector2( 103.128, 20.013 )
+rotation = -0.0139626
 scale = Vector2( 1, 2.99993 )
 __meta__ = {
 "_edit_lock_": true

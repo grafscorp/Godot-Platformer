@@ -8,38 +8,45 @@ export var health :float
 export var maxHealth :float
 
 var vec : Vector2 = Vector2.ZERO
-var target: Player = null
+var ray_target: Player = null
 onready var forward_vision = $EnemyRayCastMid
 
 # Called when the node enters the scene tree for the first time.
 #func _ready():
-#	pass # Replace with function body.
+#	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(delta: float) -> void:
 	pass
-
-#TODO: behavior tree (ai)
 
 func _physics_process(_delta: float) -> void:
 	raycast()
+	move_and_slide(Vector2(1,0), Vector2(0, -1))
+	#vec: (0, 5). Vector2.DOWN: (0, 1). Vector2.UP: (0, -1)
 	pass
 
+
 func raycast():
-	#print(target)
+	#print(ray_target)
 	#print(forward_vision.get_collider())
 	if forward_vision.is_colliding():
 		#print(forward_vision.get_collider())
-		#print(target)
+		#print(ray_target)
 		if forward_vision.get_collider() is Player:
-			target = forward_vision.get_collider()
+			ray_target = forward_vision.get_collider()
 			follow_player()
-			#target = null
+			#ray_target = null
 		elif forward_vision.get_collider() is TileMap:
-			#print('is wall or flor')
+			#print('is wall or floor')
 			pass
-	#print(target)
-	target = null
+	#print(ray_target)
+	ray_target = null
+
+#TODO: behavior tree (ai)
+
+func movement():
+	#sprite.flip_h = true
+	pass
 
 func follow_player():
 	print("hello")

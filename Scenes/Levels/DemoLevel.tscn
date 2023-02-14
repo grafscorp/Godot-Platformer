@@ -9,7 +9,7 @@
 
 [sub_resource type="Curve2D" id=2]
 _data = {
-"points": PoolVector2Array( -92.9716, -2.12372, 0, 0, 0, 0, 0, 0, 0, 0, 214, 3, 0, 0, 0, 0, 428, 3, 0, 0, 0, 0, 0, 0 )
+"points": PoolVector2Array( 0, 0, 0, 0, 98, 0, 0, 0, 0, 0, 214, 3, 0, 0, 0, 0, 428, 3, 0, 0, 0, 0, 98, 0 )
 }
 
 [sub_resource type="ConvexPolygonShape2D" id=3]
@@ -144,28 +144,20 @@ __meta__ = {
 }
 
 [node name="Path2D" type="Path2D" parent="."]
-position = Vector2( 38, 490 )
+position = Vector2( 36, 490 )
 scale = Vector2( 1, 0.333341 )
 curve = SubResource( 2 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2( 103.04, 2.88721 )
 rotation = 0.0140178
 rotate = false
 script = ExtResource( 3 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="spider-pot" parent="Path2D/PathFollow2D" instance=ExtResource( 4 )]
-position = Vector2( 103.128, 20.013 )
+position = Vector2( 1.13818, 21.4391 )
 rotation = -0.0139626
 scale = Vector2( 1, 2.99993 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 7 )

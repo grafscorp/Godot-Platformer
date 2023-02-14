@@ -45,6 +45,8 @@ func _init():
 func _ready():
 	Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
 func _process(delta)->void:
+	pass
+func _physics_process(delta)->void:
 	vec.x = 0
 
 	if !attacking:
@@ -57,7 +59,6 @@ func _process(delta)->void:
 	anim()
 	vec.x*= speed
 	vec.y += gravity*delta
-func _physics_process(delta)->void:
 	if isclimbing:
 		vec.y =0
 		update_stamina(-0.3)

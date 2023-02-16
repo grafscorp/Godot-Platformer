@@ -1,6 +1,6 @@
 extends PathFollow2D
 
-export var runSpeed = 1
+export var runSpeed = 3
 
 # Declare member variables here. Examples:
 # var a = 2

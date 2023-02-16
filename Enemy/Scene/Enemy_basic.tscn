@@ -26,3 +26,7 @@ collision_mask = 3
 enabled = true
 cast_to = Vector2( 50, 25 )
 collision_mask = 3
+
+[node name="EnemyRayCastFloor" type="RayCast2D" parent="."]
+position = Vector2( 10, 10 )
+cast_to = Vector2( 0, 5 )

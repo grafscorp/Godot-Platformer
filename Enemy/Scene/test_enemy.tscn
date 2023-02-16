@@ -3,12 +3,13 @@
 [ext_resource path="res://Enemy/Scene/Enemy_basic.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Enemy/Sprites/119_20230213182121.png" type="Texture" id=2]
 
-[sub_resource type="CapsuleShape2D" id=2]
-height = 10.0
-
 [sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 15 )
+
+[sub_resource type="RectangleShape2D" id=2]
 
 [node name="spider-pot" instance=ExtResource( 1 )]
+speed = 100.0
 
 [node name="Sprite" parent="." index="0"]
 position = Vector2( -0.500001, -3 )
@@ -17,10 +18,16 @@ texture = ExtResource( 2 )
 region_enabled = false
 
 [node name="Collision" parent="." index="1"]
-shape = SubResource( 2 )
+position = Vector2( -0.5, -0.5 )
+shape = SubResource( 1 )
 
 [node name="Area2D" type="Area2D" parent="." index="2"]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
 scale = Vector2( 5, 2 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
+
+[node name="EnemyRayCastFloor" parent="." index="6"]
+position = Vector2( 11, 11 )
+enabled = true

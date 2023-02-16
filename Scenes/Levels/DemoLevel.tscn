@@ -209,12 +209,13 @@ __meta__ = {
 }
 
 [node name="spider-pot" parent="Path2D/PathFollow2D" instance=ExtResource( 4 )]
-position = Vector2( 1.13818, 21.4391 )
+position = Vector2( 6.13771, 21.3693 )
 rotation = -0.0139626
 scale = Vector2( 1, 2.99993 )
 __meta__ = {
 "_edit_lock_": true
 }
+jump = 200.0
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 7 )
